@@ -28,6 +28,24 @@ class App extends Component {
                 });
             }
         });
+
+        if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+            let email = window.localStorage.getItem('emailForSignIn');
+            if (!email) {
+                email = window.prompt('Please provide your email for confirmation');
+            }
+
+            firebase.auth().signInWithEmailLink(email, window.location.href)
+                .then(function(result) {
+                    window.localStorage.removeItem('emailForSignIn');
+
+                    // remove sign in with email link query string stuff
+                    window.history.replaceState({}, "", "/"); //@todo: base URL?
+                })
+                .catch(function(error) {
+                    console.error(error.code);
+                });
+        }
     }
 
     componentDidMount() {
