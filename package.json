@@ -15,7 +15,8 @@
     "react-scripts": "2.0.4",
     "react-spring": "^5.9.2",
     "redux-actions": "^2.6.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "showdown": "^1.8.6"
   },
   "scripts": {
     "start": "react-scripts start",
