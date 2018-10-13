@@ -8,10 +8,15 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import VisaType from './Screens/VisaType';
 
 const styles = theme => ({
     root: {
-        width: '90%',
+        backgroundColor: 'none',
+        [theme.breakpoints.up('md')]: {
+
+        },
     },
     button: {
         marginTop: theme.spacing.unit,
@@ -26,7 +31,7 @@ const styles = theme => ({
 });
 
 function getSteps() {
-    return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+    return ['Select campaign settings', 'What is your visa type?', 'Create an ad'];
 }
 
 function getStepContent(step) {
@@ -36,7 +41,7 @@ function getStepContent(step) {
               you're willing to spend on clicks and conversions, which networks
               and geographical locations you want your ads to show on, and more.`;
         case 1:
-            return 'An ad group contains one or more ads which target a shared set of keywords.';
+            return <VisaType />;
         case 2:
             return `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.
@@ -50,6 +55,13 @@ function getStepContent(step) {
 class Registration extends Component {
     state = {
         activeStep: 0,
+        spacing: '16',
+    };
+
+    handleChange = key => (event, value) => {
+        this.setState({
+            [key]: value,
+        });
     };
 
     handleNext = () => {
@@ -74,49 +86,52 @@ class Registration extends Component {
         const { classes } = this.props;
         const steps = getSteps();
         const { activeStep } = this.state;
+        const { spacing } = this.state;
 
         return (
-            <div className={classes.root}>
-                <Stepper activeStep={activeStep} orientation="vertical">
-                    {steps.map((label, index) => {
-                        return (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                                <StepContent>
-                                    <Typography>{getStepContent(index)}</Typography>
-                                    <div className={classes.actionsContainer}>
-                                        <div>
-                                            <Button
-                                                disabled={activeStep === 0}
-                                                onClick={this.handleBack}
-                                                className={classes.button}
-                                            >
-                                                Back
-                                            </Button>
-                                            <Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={this.handleNext}
-                                                className={classes.button}
-                                            >
-                                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                            </Button>
+            <Grid container justify="center" className={classes.root} spacing={spacing}>
+                <Grid item xs={12} md={8} lg={6}>
+                    <Stepper activeStep={activeStep} orientation="vertical">
+                        {steps.map((label, index) => {
+                            return (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                    <StepContent>
+                                        <Typography>{getStepContent(index)}</Typography>
+                                        <div className={classes.actionsContainer}>
+                                            <div>
+                                                <Button
+                                                    disabled={activeStep === 0}
+                                                    onClick={this.handleBack}
+                                                    className={classes.button}
+                                                >
+                                                    Back
+                                                </Button>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={this.handleNext}
+                                                    className={classes.button}
+                                                >
+                                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                                </Button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </StepContent>
-                            </Step>
-                        );
-                    })}
-                </Stepper>
-                {activeStep === steps.length && (
-                    <Paper square elevation={0} className={classes.resetContainer}>
-                        <Typography>All steps completed - you&quot;re finished</Typography>
-                        <Button onClick={this.handleReset} className={classes.button}>
-                            Reset
-                        </Button>
-                    </Paper>
-                )}
-            </div>
+                                    </StepContent>
+                                </Step>
+                            );
+                        })}
+                    </Stepper>
+                    {activeStep === steps.length && (
+                        <Paper square elevation={0} className={classes.resetContainer}>
+                            <Typography>All steps completed - you&quot;re finished</Typography>
+                            <Button onClick={this.handleReset} className={classes.button}>
+                                Reset
+                            </Button>
+                        </Paper>
+                    )}
+                </Grid>
+            </Grid>
         );
     }
 }
