@@ -55,7 +55,7 @@ function getStepContent(step) {
 class Registration extends Component {
     state = {
         activeStep: 0,
-        spacing: '16',
+        spacing: 16,
     };
 
     handleChange = key => (event, value) => {

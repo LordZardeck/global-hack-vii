@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        width:'90%',
-        margin:'5%',
-        marginTop:'30%'
+        width: '90%',
+        margin: '5%',
+        marginTop: '30%'
     },
     formControl: {
         margin: theme.spacing.unit,
@@ -21,41 +21,49 @@ const styles = theme => ({
     },
 });
 
-class ImigrantType extends React.Component {
+class ImmigrantType extends React.Component {
     state = {
-        value:''
+        value: '',
+        spacing: 16,
     };
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({value: event.target.value});
     };
 
+    options = [
+        '',
+        'On a student visa',
+        'On a work visa',
+        'Sponsored by a family member',
+        'I don\'t have a visa'
+    ];
+
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
+        const {spacing} = this.state;
 
         return (
-            <form  autoComplete="off" className="i-am-form">
-
-                <FormControl className = {classes.root} >
+            <Grid container justify="left" className={classes.root} spacing={spacing}>
+                <Grid item xs={12}>
                     <Select
                         value={this.state.value}
                         onChange={this.handleChange}
                         name="value"
                         displayEmpty
                     >
-                        <MenuItem value="" disabled>
-                            &lt; Select One &gt;
-                        </MenuItem>
-                        <MenuItem value={10}>On a student visa</MenuItem>
-                        <MenuItem value={20}>On a work visa</MenuItem>
-                        <MenuItem value={30}>Sponsored by a family member</MenuItem>
-                        <MenuItem value={30}>I don't have a visa</MenuItem>
+                        {
+                            this.options.map(
+                                (option) =>
+                                    <MenuItem value={option}>{option}</MenuItem>
+                            )
+                        }
                     </Select>
-                </FormControl>
-            </form>
+                </Grid>
+            </Grid>
         );
     }
 }
 
 
-export default withStyles(styles)(ImigrantType);
+export default withStyles(styles)(ImmigrantType);

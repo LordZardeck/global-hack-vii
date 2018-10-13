@@ -33,7 +33,7 @@ const styles = theme => ({
 class VisaType extends Component {
     state = {
         value:'H-1B',
-        spacing: '16',
+        spacing: 16,
     };
 
     handleChange = event => {
@@ -48,7 +48,7 @@ class VisaType extends Component {
         const {spacing} = this.state;
 
         return (
-            <div className={classes.root}>
+            <Grid container justify="left" className={classes.root} spacing={spacing}>
                 <FormControl component="fieldset" className={classes.formControl}>
                     <RadioGroup
                         aria-label="Visa Type"
@@ -57,28 +57,28 @@ class VisaType extends Component {
                         value={this.state.value}
                         onChange={this.handleChange}
                     >
-                        <Grid container justify="left" className={classes.root} spacing={spacing}>
-                            {this.options.map((option) =>
-                                <Grid item xs={4}>
-                                    <FormControlLabel
-                                        className={`${this.state.value === option ? classes.selected : ''} ${classes.label}`}
-                                        value={option}
-                                        control={
-                                            <Radio
-                                                checked={this.state.value === option}
-                                                onChange={this.handleChange}
-                                                value={option}
-                                                aria-label={option}
-                                                className={classes.hidden}
-                                            />
-                                        }
-                                        label={option} />
-                                </Grid>
-                            )}
-                        </Grid>
+                        {
+                            this.options.map(
+                                (option) =>
+                                    <Grid item xs={4}>
+                                        <FormControlLabel
+                                            className={`${this.state.value === option ? classes.selected : ''} ${classes.label}`}
+                                            value={option}
+                                            control={
+                                                <Radio
+                                                    checked={this.state.value === option}
+                                                    onChange={this.handleChange}
+                                                    value={option}
+                                                    aria-label={option}
+                                                    className={classes.hidden}
+                                                />
+                                            }
+                                            label={option} />
+                                    </Grid>
+                        )}
                     </RadioGroup>
                 </FormControl>
-            </div>
+            </Grid>
         );
     }
 }
