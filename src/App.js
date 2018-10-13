@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import './App.css';
 import Knowledgebase from "./Containers/Knowledgebase";
 import {connect} from 'react-redux';
-import {subscribeGoals} from './redux/actions/goals';
+import {subscribeResources} from './redux/actions/knowledgebase';
 
 class App extends Component {
     componentDidMount() {
-        this.props.subscribeGoals();
+        this.props.subscribeResources();
     }
 
     render() {
@@ -18,4 +18,4 @@ class App extends Component {
     }
 }
 
-export default connect(null, {subscribeGoals})(App);
+export default connect(null, {subscribeResources})(App);
