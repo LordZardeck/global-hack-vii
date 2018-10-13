@@ -8,11 +8,8 @@ class User
         });
     }
 
-    static populateUser(uid, name, type) {
-        return firebase.firestore().collection("users").doc(uid).update({
-            name: name,
-            type: type
-        });
+    static populateUser(uid, data) {
+        return firebase.firestore().collection("users").doc(uid).update(data); //@todo: validation on data
     }
 }
 

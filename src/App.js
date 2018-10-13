@@ -89,7 +89,7 @@ class App extends Component {
             if(this.state.user !== null && this.state.user.userPopulated === true) {
                 component = <Knowledgebase/>;
             } else {
-                component = <UserInfo authUser={this.props.authUser} use={this.props.user} />;
+                component = <UserInfo authUser={this.state.authUser} user={this.state.user} />;
             }
         }
 
