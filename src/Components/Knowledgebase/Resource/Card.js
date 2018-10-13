@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Card.css';
+import {Link} from "react-router-dom";
 
 export default class Card extends Component {
     getLocalizedArticle() {
@@ -9,10 +10,12 @@ export default class Card extends Component {
     render() {
         return (
             <div className="resource-card">
-                {this.props.resource.image && (
-                    <div className="thumbnail" style={{backgroundImage: `url(${this.props.resource.image})`}}/>
-                )}
-                <h2>{this.getLocalizedArticle().title}</h2>
+                <Link to={`/knowledgebase/view/${this.props.resource.id}`}>
+                    {this.props.resource.image && (
+                        <div className="thumbnail" style={{backgroundImage: `url(${this.props.resource.image})`}}/>
+                    )}
+                    <h2>{this.getLocalizedArticle().title}</h2>
+                </Link>
             </div>
         );
     }

@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {subscribeResources} from './redux/actions/knowledgebase';
 import firebase from "firebase";
 import User from './redux/actions/user';
+import {withRouter} from "react-router";
 
 class App extends Component {
     constructor(props) {
@@ -71,4 +72,4 @@ class App extends Component {
     }
 }
 
-export default connect(null, {subscribeResources})(App);
+export default withRouter(connect(null, {subscribeResources})(App));
