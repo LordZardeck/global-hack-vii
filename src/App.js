@@ -5,6 +5,7 @@ import Auth from "./Components/Auth/Auth";
 import {connect} from 'react-redux';
 import {subscribeResources} from './redux/actions/knowledgebase';
 import firebase from "firebase";
+import User from './redux/actions/user';
 
 class App extends Component {
     constructor(props) {
@@ -37,6 +38,10 @@ class App extends Component {
 
             firebase.auth().signInWithEmailLink(email, window.location.href)
                 .then(function(result) {
+                    if(result.additionalUserInfo.isNewUser) {
+                        User.createUser(result.user.uid);
+                    }
+
                     window.localStorage.removeItem('emailForSignIn');
 
                     // remove sign in with email link query string stuff
