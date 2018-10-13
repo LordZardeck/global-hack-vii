@@ -10,6 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import VisaType from './Screens/VisaType';
+import ImmigrantType from './Screens/ImmigrantType';
+import SpeakEnglish from './Screens/SpeakEnglish';
+import Skills from './Screens/Skills';
 
 const styles = theme => ({
     root: {
@@ -31,22 +34,19 @@ const styles = theme => ({
 });
 
 function getSteps() {
-    return ['Select campaign settings', 'What is your visa type?', 'Create an ad'];
+    return ['I am a...', 'What is your visa type?', 'Do you speak english?', 'My skills are...'];
 }
 
 function getStepContent(step) {
     switch (step) {
         case 0:
-            return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
+            return <ImmigrantType />;
         case 1:
             return <VisaType />;
         case 2:
-            return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+            return <SpeakEnglish />;
+        case 3:
+            return <Skills />;
         default:
             return 'Unknown step';
     }

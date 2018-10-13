@@ -48,37 +48,35 @@ class VisaType extends Component {
         const {spacing} = this.state;
 
         return (
-            <Grid container justify="left" className={classes.root} spacing={spacing}>
-                <FormControl component="fieldset" className={classes.formControl}>
-                    <RadioGroup
-                        aria-label="Visa Type"
-                        name="visa-type"
-                        className={classes.group}
-                        value={this.state.value}
-                        onChange={this.handleChange}
-                    >
-                        {
-                            this.options.map(
-                                (option) =>
-                                    <Grid item xs={4}>
-                                        <FormControlLabel
-                                            className={`${this.state.value === option ? classes.selected : ''} ${classes.label}`}
+            <FormControl component="fieldset" className={classes.formControl}>
+                <RadioGroup
+                    aria-label="Visa Type"
+                    name="visa-type"
+                    className={classes.group}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                >
+                    <Grid container justify="left" className={classes.root} spacing={spacing}>
+                        {this.options.map((option) =>
+                            <Grid item xs={4}>
+                                <FormControlLabel
+                                    className={`${this.state.value === option ? classes.selected : ''} ${classes.label}`}
+                                    value={option}
+                                    control={
+                                        <Radio
+                                            checked={this.state.value === option}
+                                            onChange={this.handleChange}
                                             value={option}
-                                            control={
-                                                <Radio
-                                                    checked={this.state.value === option}
-                                                    onChange={this.handleChange}
-                                                    value={option}
-                                                    aria-label={option}
-                                                    className={classes.hidden}
-                                                />
-                                            }
-                                            label={option} />
-                                    </Grid>
+                                            aria-label={option}
+                                            className={classes.hidden}
+                                        />
+                                    }
+                                    label={option} />
+                            </Grid>
                         )}
-                    </RadioGroup>
-                </FormControl>
-            </Grid>
+                    </Grid>
+                </RadioGroup>
+            </FormControl>
         );
     }
 }

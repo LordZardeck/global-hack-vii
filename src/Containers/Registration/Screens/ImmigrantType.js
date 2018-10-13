@@ -2,37 +2,40 @@ import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
     root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: '90%',
-        margin: '5%',
-        marginTop: '30%'
+        width: '250px'
     },
-    formControl: {
-        margin: theme.spacing.unit,
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing.unit * 2,
-    },
+    select: {
+        width: '100%'
+    }
 });
 
 class ImmigrantType extends React.Component {
     state = {
-        value: '',
+        value: [],
         spacing: 16,
+        open: false,
     };
 
     handleChange = event => {
-        this.setState({value: event.target.value});
+        this.setState({value: event.target.value });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleOpen = () => {
+        this.setState({ open: true });
     };
 
     options = [
-        '',
         'On a student visa',
         'On a work visa',
         'Sponsored by a family member',
@@ -44,13 +47,19 @@ class ImmigrantType extends React.Component {
         const {spacing} = this.state;
 
         return (
-            <Grid container justify="left" className={classes.root} spacing={spacing}>
-                <Grid item xs={12}>
+            <FormControl component="fieldset" className={classes.root}>
+                <InputLabel htmlFor="immigrant-type-select">Immigrant Type</InputLabel>
                     <Select
                         value={this.state.value}
                         onChange={this.handleChange}
-                        name="value"
-                        displayEmpty
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        onOpen={this.handleOpen}
+                        multiple='true'
+                        inputProps={{
+                            name: 'immigrant_type',
+                            id: 'immigrant-type-select',
+                        }}
                     >
                         {
                             this.options.map(
@@ -59,8 +68,7 @@ class ImmigrantType extends React.Component {
                             )
                         }
                     </Select>
-                </Grid>
-            </Grid>
+            </FormControl>
         );
     }
 }
