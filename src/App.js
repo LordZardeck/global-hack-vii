@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
-import Immigrant from './Containers/Registration/Immigrant'
+import Registration from './Containers/Registration/Registration'
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <Immigrant/>
+                <Registration/>
             </div>
         );
     }
