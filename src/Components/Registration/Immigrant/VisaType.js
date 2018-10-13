@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 class VisaType extends Component {
     render() {
         return (
-            <div></div>
+            <div>
+                Goodbye
+            </div>
         );
     }
 }

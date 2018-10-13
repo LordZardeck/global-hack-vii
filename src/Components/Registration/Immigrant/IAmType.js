@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 class IAmType extends Component {
     render() {
         return (
-            <div></div>
+            <div>
+                Hello
+            </div>
         );
     }
 }
