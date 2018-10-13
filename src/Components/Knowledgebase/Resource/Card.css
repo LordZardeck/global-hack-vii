@@ -6,6 +6,12 @@
     max-width: 400px;
 }
 
+.resource-card > a {
+    display: block;
+    text-decoration: none;
+    color: #000;
+}
+
 .resource-card .thumbnail {
     height: 200px;
     background-size: cover;
