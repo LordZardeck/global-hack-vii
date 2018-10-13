@@ -13,6 +13,8 @@ import VisaType from './Screens/VisaType';
 import ImmigrantType from './Screens/ImmigrantType';
 import SpeakEnglish from './Screens/SpeakEnglish';
 import Skills from './Screens/Skills';
+import Residency from './Screens/Residency';
+import PersonalInformation from './Screens/PersonalInformation';
 
 const styles = theme => ({
     root: {
@@ -34,7 +36,14 @@ const styles = theme => ({
 });
 
 function getSteps() {
-    return ['I am a...', 'What is your visa type?', 'Do you speak english?', 'My skills are...'];
+    return [
+        'I am a...',
+        'What is your visa type?',
+        'Do you speak english?',
+        'My skills are...',
+        'Are you seeking permanent residency?',
+        'Personal Information'
+    ];
 }
 
 function getStepContent(step) {
@@ -47,6 +56,10 @@ function getStepContent(step) {
             return <SpeakEnglish />;
         case 3:
             return <Skills />;
+        case 4:
+            return <Residency />;
+        case 5:
+            return <PersonalInformation />;
         default:
             return 'Unknown step';
     }

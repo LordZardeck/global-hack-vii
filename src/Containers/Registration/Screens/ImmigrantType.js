@@ -5,7 +5,6 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
-import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
     root: {
@@ -13,12 +12,12 @@ const styles = theme => ({
     },
     select: {
         width: '100%'
-    }
+    },
 });
 
 class ImmigrantType extends React.Component {
     state = {
-        value: [],
+        value: '',
         spacing: 16,
         open: false,
     };
@@ -55,7 +54,6 @@ class ImmigrantType extends React.Component {
                         open={this.state.open}
                         onClose={this.handleClose}
                         onOpen={this.handleOpen}
-                        multiple='true'
                         inputProps={{
                             name: 'immigrant_type',
                             id: 'immigrant-type-select',
