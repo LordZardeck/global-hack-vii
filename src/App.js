@@ -75,7 +75,11 @@ class App extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        if( this.state.authUser === null || this.state.authUser.uid !== nextState.authUser.uid) {
+        if(nextState.authUser === null) {
+            return true; // no user incoming
+        }
+
+        if (this.state.authUser === null || this.state.authUser.uid !== nextState.authUser.uid) {
             this.loadUserDetails(nextState.authUser.uid);
         }
 
