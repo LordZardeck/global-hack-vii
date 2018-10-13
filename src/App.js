@@ -3,7 +3,7 @@ import './App.css';
 import Knowledgebase from "./Containers/Knowledgebase";
 import Auth from "./Components/Auth/Auth";
 import {connect} from 'react-redux';
-import {subscribeGoals} from './redux/actions/goals';
+import {subscribeResources} from './redux/actions/knowledgebase';
 import firebase from "firebase";
 
 class App extends Component {
@@ -31,7 +31,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.props.subscribeGoals();
+        this.props.subscribeResources();
 
         this.wireUserAuthChange();
     }
@@ -48,4 +48,4 @@ class App extends Component {
     }
 }
 
-export default connect(null, {subscribeGoals})(App);
+export default connect(null, {subscribeResources})(App);

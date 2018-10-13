@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
-import goals from './goals';
+import knowledgebase from './knowledgebase';
 
-export default combineReducers({ goals });
+export default combineReducers({ knowledgebase });
