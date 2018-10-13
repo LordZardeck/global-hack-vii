@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class SpeakEnglish extends Component {
     render() {
@@ -8,4 +9,4 @@ class SpeakEnglish extends Component {
     }
 }
 
-export default SpeakEnglish;
+export default connect()(SpeakEnglish);

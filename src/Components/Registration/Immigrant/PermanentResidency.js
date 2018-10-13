@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class PermanentResidency extends Component {
     render() {
@@ -8,4 +9,4 @@ class PermanentResidency extends Component {
     }
 }
 
-export default PermanentResidency;
+export default connect()(PermanentResidency);

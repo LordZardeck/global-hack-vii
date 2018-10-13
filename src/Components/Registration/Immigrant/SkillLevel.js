@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class SkillLevel extends Component {
     render() {
@@ -8,4 +9,4 @@ class SkillLevel extends Component {
     }
 }
 
-export default SkillLevel;
+export default connect()(SkillLevel);

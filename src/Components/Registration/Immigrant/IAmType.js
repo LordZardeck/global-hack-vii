@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class IAmType extends Component {
     render() {
@@ -8,4 +9,4 @@ class IAmType extends Component {
     }
 }
 
-export default IAmType;
+export default connect()(IAmType);

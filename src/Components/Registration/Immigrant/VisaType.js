@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 class VisaType extends Component {
     render() {
@@ -8,4 +9,4 @@ class VisaType extends Component {
     }
 }
 
-export default VisaType;
+export default connect()(VisaType);
