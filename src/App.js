@@ -18,9 +18,4 @@ class App extends Component {
     }
 }
 
-// export default App;
-
-export default connect(state => ({
-    // currentScreen: state.screens.currentScreen,
-    // showPlayerSelector: state.matches.showPlayerSelector
-}), {subscribeGoals})(App);
+export default connect(null, {subscribeGoals})(App);
