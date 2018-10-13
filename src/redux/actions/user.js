@@ -9,10 +9,7 @@ class User
     }
 
     static populateUser(uid, name, type) {
-        firebase.firestore().collection("users").doc(uid);
-
-        // Set the "capital" field of the city 'DC'
-        return washingtonRef.update({
+        return firebase.firestore().collection("users").doc(uid).update({
             name: name,
             type: type
         });
