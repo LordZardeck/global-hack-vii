@@ -4,9 +4,9 @@ This is the repository the Classy Llama team used to build their solution to the
 
 # Contributors
 
-- Sean Templeton
+- Sean Tempelton
 - Jared Poole
-- Eric Weise
+- Eric Wiese
 - Jeremy Turner
 - Nathan Toombs
 - Ben Walley
