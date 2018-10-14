@@ -125,10 +125,10 @@ class App extends Component {
         let component = <LoginForm />;
 
         if(this.state.authUser !== null) {
+            component = <Registration authUser={this.state.authUser} user={this.state.user} />;
+
             if(this.state.user !== null && this.state.user.userPopulated === true) {
                 component = <Knowledgebase/>;
-            } else {
-                component = <Registration authUser={this.state.authUser} user={this.state.user} />
             }
         }
 
@@ -136,9 +136,11 @@ class App extends Component {
             <MuiThemeProvider theme={theme}>
                 <CssBaseline/>
                 <div className={classes.root}>
-                    <AppBar className={classes.appBar} position={"static"}>
-                        <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
-                    </AppBar>
+                    {
+                        this.state.authUser !== null && <AppBar className={classes.appBar} position={"static"}>
+                            <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
+                        </AppBar>
+                    }
                     <Grid container direction="column" justify="flex-start" alignItems="center">
                         {component}
                     </Grid>
