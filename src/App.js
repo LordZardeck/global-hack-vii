@@ -13,7 +13,6 @@ import LoginForm from "./Components/Auth/LoginForm";
 import firebase from "firebase";
 import User from './redux/actions/user';
 import Registration from "./Containers/Registration/Registration";
-import Back from './Components/Back'
 import MenuBar from './Components/MenuBar'
 
 const theme = createMuiTheme({
@@ -140,7 +139,7 @@ class App extends Component {
                 <CssBaseline/>
                 <div className={classes.root}>
                     {
-                        <MenuBar showBack/>
+                        <MenuBar/>
                     }
                     <Grid container direction="column" justify="flex-start" alignItems="center">
                         {component}
