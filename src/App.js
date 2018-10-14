@@ -141,10 +141,6 @@ class App extends Component {
                 <div className={classes.root}>
                     {
                         <MenuBar showBack/>
-                        // this.state.authUser !== null && <AppBar className={classes.appBar} position={"static"}>
-                        //     <Back/>
-                        //     <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
-                        // </AppBar>
                     }
                     <Grid container direction="column" justify="flex-start" alignItems="center">
                         {component}
