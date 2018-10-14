@@ -15,6 +15,7 @@ import SpeakEnglish from './Screens/SpeakEnglish';
 import Skills from './Screens/Skills';
 import Residency from './Screens/Residency';
 import PersonalInformation from './Screens/PersonalInformation';
+import User from "../../redux/actions/user";
 
 const styles = theme => ({
     root: {
@@ -71,6 +72,44 @@ class Registration extends Component {
         spacing: 16,
     };
 
+    constructor(props) {
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event) {
+        let that = this;
+
+        //@todo: hard coded values
+        let name = 'eric is great';
+        let userType = 'On a student visa';
+        let visaType = 'H-1B';
+        let speakEnglish = true;
+        let skills = ['Farmer', 'Accountant'];
+        let seekingPermanentResidency = true;
+
+
+        // console.log(this.props);
+
+        User.populateUser(
+            this.props.authUser.uid,
+            {
+                name: name,
+                type: userType,
+                visaType: visaType,
+                speakEnglish: speakEnglish,
+                skills: skills,
+                seekingPermanentResidency: seekingPermanentResidency,
+
+                userPopulated: true // fixed value
+            }
+        ).then(result => {
+            that.setState({formSubmitted: true});
+        });
+
+        event.preventDefault();
+    }
+
     handleChange = key => (event, value) => {
         this.setState({
             [key]: value,
@@ -104,7 +143,8 @@ class Registration extends Component {
         return (
             <Grid container justify="center" className={classes.root} spacing={spacing}>
                 <Grid item xs={12} md={8} lg={6}>
-                    <Stepper activeStep={activeStep} orientation="vertical">
+                    <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                        <Stepper activeStep={activeStep} orientation="vertical">
                         {steps.map((label, index) => {
                             return (
                                 <Step key={label}>
@@ -135,6 +175,7 @@ class Registration extends Component {
                             );
                         })}
                     </Stepper>
+                    </form>
                     {activeStep === steps.length && (
                         <Paper square elevation={0} className={classes.resetContainer}>
                             <Typography>All steps completed - you&quot;re finished</Typography>
