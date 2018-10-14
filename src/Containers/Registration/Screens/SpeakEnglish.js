@@ -36,8 +36,8 @@ class SpeakEnglish extends Component {
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    {this.options.map((option) =>
-                        <FormControlLabel control={
+                    {this.options.map((option, index) =>
+                        <FormControlLabel key={index} control={
                             <Radio
                                 checked={this.state.value === option}
                                 onChange={this.handleChange}

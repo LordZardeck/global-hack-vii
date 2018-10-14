@@ -53,8 +53,9 @@ class PersonalInformation extends Component {
 
         return (
             <div className={classes.root}>
-                {this.options.map((option) =>
+                {this.options.map((option, index) =>
                     <TextField
+                        key={index}
                         name={option.name}
                         label={option.label}
                         onChange={this.handleChange(option.name)}

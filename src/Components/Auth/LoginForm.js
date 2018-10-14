@@ -1,14 +1,19 @@
 import React, {Component} from 'react';
 import './LoginForm.css';
 import firebase from "firebase";
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import arch from'../../arch.png'
+import {connect} from "react-redux";
+import {Redirect} from "react-router";
 
 
 const styles = theme => ({
+    root: {
+        paddingLeft: '20px',
+        paddingRight: '20px'
+    },
 
     coverImage:{
         background:'#2288C5',
@@ -140,11 +145,16 @@ class LoginForm extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const { classes, authUser } = this.props;
+
+        if(authUser !== null) {
+            return <Redirect to="/"/>
+        }
+
         return (
-            <div className="outerContainer original-login">
-                <div className={classes.coverImage}></div>
-                <div className={classes.backgroundImage}></div>
+            <div className={classes.root}>
+                <div className={classes.coverImage}/>
+                <div className={classes.backgroundImage}/>
                 <div className={classes.largeTitle}>enabl</div>
                 <div className={classes.smallTitle}>St. Louis, Missouri</div>
                 <div className={classes.auth}>
@@ -166,4 +176,4 @@ LoginForm.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(connect(state => ({...state.user}))(LoginForm));

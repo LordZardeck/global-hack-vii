@@ -48,7 +48,6 @@ class VisaType extends Component {
 
     render() {
         const {classes} = this.props;
-
         const {spacing} = this.state;
 
         return (
@@ -59,9 +58,9 @@ class VisaType extends Component {
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    <Grid container justify="left" className={classes.root} spacing={spacing}>
-                        {this.options.map((option) =>
-                            <Grid item xs={4}>
+                    <Grid container justify="flex-start" className={classes.root} spacing={spacing}>
+                        {this.options.map((option, index) =>
+                            <Grid key={index} item xs={4}>
                                 <FormControlLabel
                                     className={`${this.state.value === option ? classes.selected : ''} ${classes.label}`}
                                     value={option}

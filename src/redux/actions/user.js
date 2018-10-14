@@ -1,16 +1,56 @@
 import firebase from '../../firebase';
+import {createActions} from "redux-actions";
 
-class User
-{
-    static createUser(uid) {
-        return firebase.firestore().collection("users").doc(uid).set({
-            // at this point, no other info is known
+let unregisterAuthStateChange = null;
+
+export const {changeAuth, updateUser} = createActions('CHANGE_AUTH', 'UPDATE_USER');
+
+export function subscribeAuthStateChange() {
+    return dispatch => {
+        if (unregisterAuthStateChange !== null) {
+            unregisterAuthStateChange();
+            unregisterAuthStateChange = null;
+        }
+
+        unregisterAuthStateChange = firebase.auth().onAuthStateChanged(user => {
+            dispatch(changeAuth(user));
+
+            if (user === null) {
+                dispatch(updateUser(null));
+                return;
+            }
+
+            getUserDetails(user.uid).then(userDoc => {
+                if(!userDoc.exists) {
+                    return createUser(user.uid)(dispatch);
+                }
+
+                return dispatch(updateUser(userDoc.data()));
+            });
         });
-    }
+    };
+}
 
-    static populateUser(uid, data) {
-        return firebase.firestore().collection("users").doc(uid).update(data); //@todo: validation on data
+export function getUserDetails(uid) {
+    return firebase.firestore().collection('users').doc(uid).get();
+}
+
+export function createUser(uid) {
+    return dispatch => {
+        const userDoc = firebase.firestore()
+            .collection("users")
+            .doc(uid);
+
+        return userDoc
+            .set({
+                // at this point, no other info is known
+            })
+            .then(() => userDoc.get())
+            .then(userDoc => dispatch(updateUser(userDoc.data())));
     }
 }
 
-export default User;
+export function populateUser(uid, data) {
+    // TODO: Validation on data
+    return firebase.firestore().collection("users").doc(uid).update(data);
+}
