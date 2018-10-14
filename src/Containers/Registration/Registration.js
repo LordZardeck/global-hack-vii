@@ -105,7 +105,11 @@ class Registration extends Component {
         this.setState(state => {
             const newState = {
                 activeStep: state.activeStep + 1,
-                formData: {...state.formData, ...stepContent}
+                formData: {
+                    ...state.formData,
+                    ...stepContent,
+                    userPopulated: true
+                }
             };
 
             if (this.state.activeStep === 5) {
