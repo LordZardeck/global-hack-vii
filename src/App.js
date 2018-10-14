@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 import Knowledgebase from "./Containers/Knowledgebase";
 import {connect} from 'react-redux';
 import {subscribeResources} from './redux/actions/knowledgebase';
@@ -49,7 +48,7 @@ class App extends Component {
             <MuiThemeProvider theme={theme}>
                 <CssBaseline/>
                 <div className="App">
-                    <AppBar className={classes.appBar}>
+                    <AppBar className={classes.appBar} position={"static"}>
                         <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
                     </AppBar>
                     <Grid container direction="column" justify="flex-start" alignItems="center">
