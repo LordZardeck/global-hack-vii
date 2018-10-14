@@ -21,7 +21,7 @@ class SOS extends Component
 
             <div className="contact-form">
                 <div className="sponsor-info">
-                    {/*<img className="mugshot" alt="Sponsor Thumbnail" />*/}
+                    <img className="thumbnail" alt="Sponsor Thumbnail" src="images/Ruben.png" />
 
                     <span>Hello! I'm {this.props.user.sponsor.name}. I'm here to help.</span>
                 </div>
