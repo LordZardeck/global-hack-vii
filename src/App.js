@@ -12,10 +12,11 @@ import LoginForm from "./Components/Auth/LoginForm";
 import firebase from "firebase";
 import {createUser, subscribeAuthStateChange} from './redux/actions/user';
 import Registration from "./Containers/Registration/Registration";
+import SOS from "./Components/SOS/SOS";
 import Card from "./Components/Knowledgebase/Resource/Card";
 import Details from "./Components/Knowledgebase/Resource/Details";
 import Dashboard from "./Containers/Dashboard";
-import MenuBar from './Components/MenuBar'
+import MenuBar from './Components/MenuBar';
 
 const theme = createMuiTheme({
     typography: {
@@ -118,6 +119,9 @@ class App extends Component {
                                     : <React.Fragment/>
                             }
                         </Grid>
+                    }
+                    {this.isRegistered() &&
+                        <SOS user={this.props.currentUser} />
                     }
                 </div>
             </MuiThemeProvider>
