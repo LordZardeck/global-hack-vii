@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Knowledgebase from "./Containers/Knowledgebase";
 import {connect} from 'react-redux';
 import {subscribeResources} from './redux/actions/knowledgebase';
 import {Redirect, Route, Switch, withRouter} from "react-router";
@@ -13,6 +12,8 @@ import LoginForm from "./Components/Auth/LoginForm";
 import firebase from "firebase";
 import {createUser, subscribeAuthStateChange} from './redux/actions/user';
 import Registration from "./Containers/Registration/Registration";
+import Card from "./Components/Knowledgebase/Resource/Card";
+import Details from "./Components/Knowledgebase/Resource/Details";
 
 const theme = createMuiTheme({
     typography: {
@@ -88,7 +89,7 @@ class App extends Component {
     }
 
     render() {
-        const {classes} = this.props;
+        const {classes, resources} = this.props;
 
         return (
             <MuiThemeProvider theme={theme}>
@@ -100,11 +101,18 @@ class App extends Component {
                         </AppBar>
                     }
                     {
-                        this.props.sessionInitialized && this.props.userInitialized && <Grid container direction="column" justify="flex-start" alignItems="center">
+                        this.props.sessionInitialized && this.props.userInitialized &&
+                        <Grid container direction="column" justify="flex-start" alignItems="stretch">
                             <Switch>
                                 <Route path="/login" component={LoginForm}/>
                                 <Route path="/registration" component={Registration}/>
-                                <Route path="/" component={Knowledgebase}/>
+                                <Route exact path="/"
+                                       render={
+                                           () => Object.keys(resources)
+                                               .map(resourceId => <Card key={resourceId}
+                                                                        resource={resources[resourceId]}/>)
+                                       }/>
+                                <Route path="/knowledgebase/view/:id" render={props => <Details {...props}/>}/>
                             </Switch>
                             {
                                 (!this.isLoggedIn())
@@ -124,7 +132,7 @@ class App extends Component {
     }
 }
 
-export default withStyles(styles)(withRouter(connect(state => ({...state.user}), {
+export default withStyles(styles)(withRouter(connect(state => ({...state.user, ...state.knowledgebase}), {
     subscribeResources,
     subscribeAuthStateChange,
     createUser
