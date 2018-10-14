@@ -36,6 +36,10 @@ class VisaType extends Component {
         spacing: 16,
     };
 
+    getStepState() {
+        return {visaType: this.state.value};
+    }
+
     handleChange = event => {
         this.setState({ value: event.target.value });
     };
@@ -51,7 +55,6 @@ class VisaType extends Component {
             <FormControl component="fieldset" className={classes.formControl}>
                 <RadioGroup
                     aria-label="Visa Type"
-                    name="visa-type"
                     className={classes.group}
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -67,6 +70,7 @@ class VisaType extends Component {
                                             checked={this.state.value === option}
                                             onChange={this.handleChange}
                                             value={option}
+                                            name="visa_type"
                                             aria-label={option}
                                             className={classes.hidden}
                                         />

@@ -3,7 +3,6 @@ import {withStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
@@ -21,6 +20,10 @@ class ImmigrantType extends React.Component {
         spacing: 16,
         open: false,
     };
+
+    getStepState() {
+        return {immigrantType: this.state.value};
+    }
 
     handleChange = event => {
         this.setState({value: event.target.value });
@@ -70,6 +73,5 @@ class ImmigrantType extends React.Component {
         );
     }
 }
-
 
 export default withStyles(styles)(ImmigrantType);

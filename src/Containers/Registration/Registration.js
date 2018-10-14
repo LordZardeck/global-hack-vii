@@ -36,72 +36,56 @@ const styles = theme => ({
     },
 });
 
-function getSteps() {
-    return [
-        'I am a...',
-        'What is your visa type?',
-        'Do you speak english?',
-        'My skills are...',
-        'Are you seeking permanent residency?',
-        'Personal Information'
-    ];
-}
-
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <ImmigrantType />;
-        case 1:
-            return <VisaType />;
-        case 2:
-            return <SpeakEnglish />;
-        case 3:
-            return <Skills />;
-        case 4:
-            return <Residency />;
-        case 5:
-            return <PersonalInformation />;
-        default:
-            return 'Unknown step';
-    }
-}
-
 class Registration extends Component {
     state = {
         activeStep: 0,
         spacing: 16,
     };
 
+    constructor(props) {
+        super(props);
+        this.stepRefs = {
+            0: React.createRef(),
+            1: React.createRef(),
+            2: React.createRef(),
+            3: React.createRef(),
+            4: React.createRef(),
+            5: React.createRef()
+        };
+    }
 
-    handleSubmit() {
-        let that = this;
+    getStepContent = (step) => {
+        switch (step) {
+            case 0:
+                return <ImmigrantType innerRef={this.stepRefs[0]} />;
+            case 1:
+                return <VisaType innerRef={this.stepRefs[1]} />;
+            case 2:
+                return <SpeakEnglish innerRef={this.stepRefs[2]} />;
+            case 3:
+                return <Skills innerRef={this.stepRefs[3]} />;
+            case 4:
+                return <Residency innerRef={this.stepRefs[4]} />;
+            case 5:
+                return <PersonalInformation innerRef={this.stepRefs[5]} />;
+            default:
+                return 'Unknown step';
+        }
+    };
 
-        //@todo: hard coded values
-        let name = 'eric is great';
-        let userType = 'On a student visa';
-        let visaType = 'H-1B';
-        let speakEnglish = true;
-        let skills = ['Farmer', 'Accountant'];
-        let seekingPermanentResidency = true;
+    getSteps = () => {
+        return [
+            'I am a...',
+            'What is your visa type?',
+            'Do you speak english?',
+            'My skills are...',
+            'Are you seeking permanent residency?',
+            'Personal Information'
+        ];
+    };
 
-
-        // console.log(this.props);
-
-        User.populateUser(
-            this.props.authUser.uid,
-            {
-                name: name,
-                type: userType,
-                visaType: visaType,
-                speakEnglish: speakEnglish,
-                skills: skills,
-                seekingPermanentResidency: seekingPermanentResidency,
-
-                userPopulated: true // fixed value
-            }
-        ).then(result => {
-            that.setState({formSubmitted: true});
-        });
+    handleSubmit(userId, formData) {
+        User.populateUser(userId, formData).then(() => this.setState({formSubmitted: true}));
     }
 
     handleChange = key => (event, value) => {
@@ -110,15 +94,27 @@ class Registration extends Component {
         });
     };
 
-    handleNext = () => {
-        debugger;
-        if (this.state.activeStep === getSteps().length - 1) {
-            this.setState(state => ({
-                activeStep: state.activeStep + 1,
-            }));
-        } else {
-            this.handleSubmit()
+    handleNext() {
+        let stepContent = '';
+        let currentChild = this.stepRefs[this.state.activeStep].current;
+
+        if (currentChild !== null && typeof currentChild.getStepState === 'function') {
+            stepContent = currentChild.getStepState();
         }
+
+        this.setState(state => {
+            const newState = {
+                activeStep: state.activeStep + 1,
+                formData: {...state.formData, ...stepContent}
+            };
+
+            if (this.state.activeStep === 5) {
+                this.handleSubmit(this.props.authUser.uid, newState.formData);
+                console.log('form submitted!');
+            }
+
+            return newState;
+        });
     };
 
     handleBack = () => {
@@ -135,7 +131,7 @@ class Registration extends Component {
 
     render() {
         const { classes } = this.props;
-        const steps = getSteps();
+        const steps = this.getSteps();
         const { activeStep } = this.state;
         const { spacing } = this.state;
 
@@ -149,7 +145,7 @@ class Registration extends Component {
                                 <Step key={label}>
                                     <StepLabel>{label}</StepLabel>
                                     <StepContent>
-                                        <Typography>{getStepContent(index)}</Typography>
+                                        {this.getStepContent(index)}
                                         <div className={classes.actionsContainer}>
                                             <div>
                                                 <Button
@@ -162,7 +158,7 @@ class Registration extends Component {
                                                 <Button
                                                     variant="contained"
                                                     color="primary"
-                                                    onClick={this.handleNext}
+                                                    onClick={() => this.handleNext()}
                                                     className={classes.button}
                                                 >
                                                     {activeStep === steps.length - 1 ? 'Finish' : 'Next'}

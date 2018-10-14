@@ -11,20 +11,43 @@ const styles = theme => ({
 
 class PersonalInformation extends Component {
     state = {
-        FirstName:'',
-        LastName: '',
-        Email:'',
-        Phone:''
+        firstName:'',
+        lastName: '',
+        email:'',
+        phone:''
     };
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
-    };
+    getStepState() {
+        return {...this.state};
+    }
+
+    handleChange(name) {
+        console.log(`Handling change for state ${name}`);
+        return event => {
+            console.log(`Got update for state ${name}: ${event.target.value}`);
+            this.setState({
+                [name]: event.target.value,
+            });
+        };
+    }
 
     options = [
-        'FirstName', 'LastName', 'Email', 'Phone'
+        {
+            label: 'First Name',
+            name: 'firstName'
+        },
+        {
+            label: 'Last Name',
+            name: 'lastName'
+        },
+        {
+            label: 'Email',
+            name: 'email'
+        },
+        {
+            label: 'Phone',
+            name: 'phone'
+        }
     ];
 
     render() {
@@ -34,10 +57,9 @@ class PersonalInformation extends Component {
             <div className={classes.root}>
                 {this.options.map((option) =>
                     <TextField
-                        id={option}
-                        label={option}
-                        value={this.state.name}
-                        onChange={this.handleChange({option})}
+                        name={option.name}
+                        label={option.label}
+                        onChange={this.handleChange(option.name)}
                     />
                 )}
             </div>
@@ -45,4 +67,4 @@ class PersonalInformation extends Component {
     }
 }
 
-export default withStyles()(PersonalInformation);
+export default withStyles(styles)(PersonalInformation);

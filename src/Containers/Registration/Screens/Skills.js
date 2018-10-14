@@ -44,6 +44,10 @@ class Skills extends React.Component {
         open: false,
     };
 
+    getStepState() {
+        return {skills: this.state.value};
+    }
+
     handleChange = event => {
         this.setState({value: event.target.value });
     };
