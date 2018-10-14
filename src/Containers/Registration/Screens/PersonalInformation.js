@@ -22,9 +22,7 @@ class PersonalInformation extends Component {
     }
 
     handleChange(name) {
-        console.log(`Handling change for state ${name}`);
         return event => {
-            console.log(`Got update for state ${name}: ${event.target.value}`);
             this.setState({
                 [name]: event.target.value,
             });
