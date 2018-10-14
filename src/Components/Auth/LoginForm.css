@@ -9,10 +9,3 @@ input::placeholder{
 input:focus{
     outline:none;
 }
-
-body{
-    background-image:url('../../arch.png');
-    background-attachment: fixed;
-    background-size:cover;
-    background-position:center;
-}

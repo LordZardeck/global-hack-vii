@@ -5,14 +5,29 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
+import arch from'../../arch.png'
 
 
 const styles = theme => ({
 
     coverImage:{
         background:'#2288C5',
-        opacity:'0.9',
+        opacity:'0.6',
         zIndex:'-10',
+        top:'0',
+        left:'0',
+        height:'100vh',
+        width:'100vw',
+        position:'absolute',
+    },
+
+    backgroundImage:{
+        background:'black',
+        backgroundImage:'url(' + arch + ')',
+        backgroundAttachment: 'fixed',
+        backgroundSize:'cover',
+        backgroundPosition:'center',
+        zIndex:'-20',
         top:'0',
         left:'0',
         height:'100vh',
@@ -129,6 +144,7 @@ class LoginForm extends Component {
         return (
             <div className="outerContainer original-login">
                 <div className={classes.coverImage}></div>
+                <div className={classes.backgroundImage}></div>
                 <div className={classes.largeTitle}>enabl</div>
                 <div className={classes.smallTitle}>St. Louis, Missouri</div>
                 <div className={classes.auth}>
