@@ -36,6 +36,10 @@ class VisaType extends Component {
         spacing: 16,
     };
 
+    getStepState() {
+        return {visaType: this.state.value};
+    }
+
     handleChange = event => {
         this.setState({ value: event.target.value });
     };
@@ -44,21 +48,19 @@ class VisaType extends Component {
 
     render() {
         const {classes} = this.props;
-
         const {spacing} = this.state;
 
         return (
             <FormControl component="fieldset" className={classes.formControl}>
                 <RadioGroup
                     aria-label="Visa Type"
-                    name="visa-type"
                     className={classes.group}
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    <Grid container justify="left" className={classes.root} spacing={spacing}>
-                        {this.options.map((option) =>
-                            <Grid item xs={4}>
+                    <Grid container justify="flex-start" className={classes.root} spacing={spacing}>
+                        {this.options.map((option, index) =>
+                            <Grid key={index} item xs={4}>
                                 <FormControlLabel
                                     className={`${this.state.value === option ? classes.selected : ''} ${classes.label}`}
                                     value={option}
@@ -67,6 +69,7 @@ class VisaType extends Component {
                                             checked={this.state.value === option}
                                             onChange={this.handleChange}
                                             value={option}
+                                            name="visa_type"
                                             aria-label={option}
                                             className={classes.hidden}
                                         />

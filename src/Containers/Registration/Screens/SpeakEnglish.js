@@ -14,6 +14,10 @@ class SpeakEnglish extends Component {
         value:''
     };
 
+    getStepState() {
+        return {speakEnglish: this.state.value};
+    }
+
     handleChange = event => {
         this.setState({value: event.target.value });
     };
@@ -27,13 +31,13 @@ class SpeakEnglish extends Component {
             <FormControl component="fieldset" className={classes.formControl}>
                 <RadioGroup
                     aria-label="Do you speak english?"
-                    name="speak-english"
+                    name="speak_english"
                     className={classes.group}
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    {this.options.map((option) =>
-                        <FormControlLabel control={
+                    {this.options.map((option, index) =>
+                        <FormControlLabel key={index} control={
                             <Radio
                                 checked={this.state.value === option}
                                 onChange={this.handleChange}

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './UserInfo.css';
-import User from '../../redux/actions/user';
+import {populateUser} from '../../redux/actions/user';
 
 export default class UserInfo extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ export default class UserInfo extends Component {
     handleSubmit(event) {
         let that = this;
 
-        //@todo: hard coded values
+        // TODO: Remove hard coded values
         let name = 'eric is great';
         let userType = 'On a student visa';
         let visaType = 'H-1B';
@@ -24,10 +24,7 @@ export default class UserInfo extends Component {
         let skills = ['Farmer', 'Accountant'];
         let seekingPermanentResidency = true;
 
-
-        // console.log(this.props);
-
-        User.populateUser(
+        populateUser(
             this.props.authUser.uid,
             {
                 name: name,
@@ -36,12 +33,9 @@ export default class UserInfo extends Component {
                 speakEnglish: speakEnglish,
                 skills: skills,
                 seekingPermanentResidency: seekingPermanentResidency,
-
                 userPopulated: true // fixed value
             }
-        ).then(result => {
-            that.setState({formSubmitted: true});
-        });
+        ).then(() => that.setState({formSubmitted: true}));
 
         event.preventDefault();
     }

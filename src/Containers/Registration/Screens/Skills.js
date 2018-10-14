@@ -37,12 +37,16 @@ const MenuProps = {
     },
 };
 
-class Skills extends React.Component {
+class Skills extends Component {
     state = {
         value: [],
         spacing: 16,
         open: false,
     };
+
+    getStepState() {
+        return {skills: this.state.value};
+    }
 
     handleChange = event => {
         this.setState({value: event.target.value });
@@ -64,7 +68,6 @@ class Skills extends React.Component {
 
     render() {
         const {classes, theme} = this.props;
-        const {spacing} = this.state;
 
         return (
             <FormControl component="fieldset" className={classes.root}>

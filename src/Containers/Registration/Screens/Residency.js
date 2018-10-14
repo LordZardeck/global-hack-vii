@@ -11,7 +11,11 @@ const styles = theme => ({
 
 class Residency extends Component {
     state = {
-        value:''
+        permanentResidency:''
+    };
+
+    getStepState() {
+        return {value: this.state.value};
     };
 
     handleChange = event => {
@@ -27,13 +31,13 @@ class Residency extends Component {
             <FormControl component="fieldset" className={classes.formControl}>
                 <RadioGroup
                     aria-label="Are you seeking permanent residency?"
-                    name="permanent-residency"
+                    name="permanent_residency"
                     className={classes.group}
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    {this.options.map((option) =>
-                        <FormControlLabel control={
+                    {this.options.map((option, index) =>
+                        <FormControlLabel key={index} control={
                             <Radio
                                 checked={this.state.value === option}
                                 onChange={this.handleChange}

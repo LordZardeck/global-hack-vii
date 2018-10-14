@@ -3,7 +3,6 @@ import {withStyles} from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 
 const styles = theme => ({
@@ -15,12 +14,16 @@ const styles = theme => ({
     },
 });
 
-class ImmigrantType extends React.Component {
+class ImmigrantType extends Component {
     state = {
         value: '',
         spacing: 16,
         open: false,
     };
+
+    getStepState() {
+        return {immigrantType: this.state.value};
+    }
 
     handleChange = event => {
         this.setState({value: event.target.value });
@@ -43,7 +46,6 @@ class ImmigrantType extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const {spacing} = this.state;
 
         return (
             <FormControl component="fieldset" className={classes.root}>
@@ -61,8 +63,8 @@ class ImmigrantType extends React.Component {
                     >
                         {
                             this.options.map(
-                                (option) =>
-                                    <MenuItem value={option}>{option}</MenuItem>
+                                (option, index) =>
+                                    <MenuItem key={index} value={option}>{option}</MenuItem>
                             )
                         }
                     </Select>
@@ -70,6 +72,5 @@ class ImmigrantType extends React.Component {
         );
     }
 }
-
 
 export default withStyles(styles)(ImmigrantType);
