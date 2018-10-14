@@ -37,13 +37,15 @@ export function getUserDetails(uid) {
 
 export function createUser(uid) {
     return dispatch => {
-        return firebase.firestore()
+        const userDoc = firebase.firestore()
             .collection("users")
-            .doc(uid)
+            .doc(uid);
+
+        return userDoc
             .set({
                 // at this point, no other info is known
             })
-            .get()
+            .then(() => userDoc.get())
             .then(userDoc => dispatch(updateUser(userDoc.data())));
     }
 }

@@ -10,6 +10,10 @@ import {Redirect} from "react-router";
 
 
 const styles = theme => ({
+    root: {
+        paddingLeft: '20px',
+        paddingRight: '20px'
+    },
 
     coverImage:{
         background:'#2288C5',
@@ -148,7 +152,7 @@ class LoginForm extends Component {
         }
 
         return (
-            <div className="outerContainer original-login">
+            <div className={classes.root}>
                 <div className={classes.coverImage}/>
                 <div className={classes.backgroundImage}/>
                 <div className={classes.largeTitle}>enabl</div>
