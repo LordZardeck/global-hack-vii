@@ -161,7 +161,7 @@ class LoginForm extends Component {
                     {!this.state.emailSent ? (
                         <form onSubmit={this.handleSubmit}>
                             <input className={classes.emailInput} type="email" placeholder="Enter your email" value={this.state.emailValue} onChange={this.handleChange} />
-                            <input className={classes.continueButton} type="submit" value="Continue" />
+                            <button className={classes.continueButton} type="submit">Continue</button>
                         </form>
                     ) : (
                         <Paper className={classes.checkEmail}>Check your email for authorization link.</Paper>
