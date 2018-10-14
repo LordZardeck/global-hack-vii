@@ -57,9 +57,16 @@ html, body {
     font-size: 24px;
     font-weight: 900;
     line-height: 26px;
-    height: 105px;
-    padding: 35px 15px 5px 15px;
+    min-height: 105px;
+    padding: 35px 15px 15px 15px;
     border-bottom: 1px solid #E1E1E1;
+}
+
+.SOS .contact-form .sponsor-info .thumbnail {
+    height: 75px;
+    float: left;
+    margin-right: 15px;
+    margin-top: -15px;
 }
 
 .SOS .contact-form .sponsor-contact {
