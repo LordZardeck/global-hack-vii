@@ -25,7 +25,9 @@ const styles = theme => ({
         top: '50%',
         transform: 'translateY(-50%)',
         left: '10px',
-        position: 'absolute'
+        position: 'absolute',
+        background: 'none',
+        border: 'none'
     },
     backButtonIcon: {
         width: '26px',
