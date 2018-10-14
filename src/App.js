@@ -13,6 +13,7 @@ import LoginForm from "./Components/Auth/LoginForm";
 import firebase from "firebase";
 import User from './redux/actions/user';
 import Registration from "./Containers/Registration/Registration";
+import Back from './Components/Back'
 
 const theme = createMuiTheme({
     typography: {
@@ -51,6 +52,7 @@ class App extends Component {
             user: null
         };
     }
+
 
     wireUserAuthChange() {
         let that = this;
@@ -138,6 +140,7 @@ class App extends Component {
                 <div className={classes.root}>
                     {
                         this.state.authUser !== null && <AppBar className={classes.appBar} position={"static"}>
+                            <Back/>
                             <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
                         </AppBar>
                     }
