@@ -18,6 +18,7 @@ import PersonalInformation from './Screens/PersonalInformation';
 import {populateUser} from "../../redux/actions/user";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
+import MenuBar from "../../Components/MenuBar";
 
 const styles = theme => ({
     root: {
@@ -145,51 +146,54 @@ class Registration extends Component {
         }
 
         return (
-            <Grid container justify="center" className={classes.root} spacing={spacing}>
-                <Grid item xs={12} md={8} lg={6}>
-                    <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-                        <Stepper activeStep={activeStep} orientation="vertical">
-                        {steps.map((label, index) => {
-                            return (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                    <StepContent>
-                                        {this.getStepContent(index)}
-                                        <div className={classes.actionsContainer}>
-                                            <div>
-                                                <Button
-                                                    disabled={activeStep === 0}
-                                                    onClick={this.handleBack}
-                                                    className={classes.button}
-                                                >
-                                                    Back
-                                                </Button>
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={() => this.handleNext()}
-                                                    className={classes.button}
-                                                >
-                                                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    </StepContent>
-                                </Step>
-                            );
-                        })}
-                    </Stepper>
-                    </form>
-                    {activeStep === steps.length && (
-                        <Paper square elevation={0} className={classes.resetContainer}>
-                            <Typography>All steps completed - you&quot;re finished</Typography>
-                            <Button onClick={this.handleReset} className={classes.button}>
-                                Reset
-                            </Button>
-                        </Paper>
-                    )}
+            <React.Fragment>
+                <MenuBar/>
+                <Grid container justify="center" className={classes.root} spacing={spacing}>
+                    <Grid item xs={12} md={8} lg={6}>
+                        <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                            <Stepper activeStep={activeStep} orientation="vertical">
+                                {steps.map((label, index) => {
+                                    return (
+                                        <Step key={label}>
+                                            <StepLabel>{label}</StepLabel>
+                                            <StepContent>
+                                                {this.getStepContent(index)}
+                                                <div className={classes.actionsContainer}>
+                                                    <div>
+                                                        <Button
+                                                            disabled={activeStep === 0}
+                                                            onClick={this.handleBack}
+                                                            className={classes.button}
+                                                        >
+                                                            Back
+                                                        </Button>
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            onClick={() => this.handleNext()}
+                                                            className={classes.button}
+                                                        >
+                                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </StepContent>
+                                        </Step>
+                                    );
+                                })}
+                            </Stepper>
+                        </form>
+                        {activeStep === steps.length && (
+                            <Paper square elevation={0} className={classes.resetContainer}>
+                                <Typography>All steps completed - you&quot;re finished</Typography>
+                                <Button onClick={this.handleReset} className={classes.button}>
+                                    Reset
+                                </Button>
+                            </Paper>
+                        )}
+                    </Grid>
                 </Grid>
-            </Grid>
+            </React.Fragment>
         );
     }
 }

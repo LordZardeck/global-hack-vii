@@ -11,6 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import Paper from "@material-ui/core/Paper/Paper";
 import {ArrowForward} from "@material-ui/icons";
 import Button from "@material-ui/core/Button/Button";
+import MenuBar from "../../MenuBar";
 
 const converter = new showdown.Converter();
 const defaultState = {resource: {}, tasks: {}};
@@ -124,6 +125,7 @@ class Details extends Component {
 
         return (
             <div className="resource-details">
+                <MenuBar showBack/>
                 <div className={classes.heroImage} style={{backgroundImage: `url(${this.state.resource.image})`}}/>
                 <Typography className={[classes.title, classes.objectMargin].join(' ')}
                             variant={"h5"}>{title}</Typography>

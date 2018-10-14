@@ -10,6 +10,7 @@ import {ArrowForward} from "@material-ui/icons";
 import {connect} from "react-redux";
 import {styles} from '../Components/Knowledgebase/Resource/Details';
 import {withStyles} from "@material-ui/core";
+import MenuBar from "../Components/MenuBar";
 
 const dashboardStyles = {
     ...styles,
@@ -39,6 +40,7 @@ class Dashboard extends Component {
 
         return (
             <React.Fragment>
+                <MenuBar/>
                 <Typography className={[classes.objectMargin, classes.tasksHeader].join(' ')}
                             variant={"h6"}>My Pathway</Typography>
                 {

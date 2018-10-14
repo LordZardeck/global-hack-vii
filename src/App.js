@@ -99,9 +99,6 @@ class App extends Component {
                 <CssBaseline/>
                 <div className={classes.root}>
                     {
-                        <MenuBar/>
-                    }
-                    {
                         this.props.sessionInitialized && this.props.userInitialized &&
                         <Grid container direction="column" justify="flex-start" alignItems="stretch">
                             <Switch>
