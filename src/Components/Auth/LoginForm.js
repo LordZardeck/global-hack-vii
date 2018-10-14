@@ -4,15 +4,10 @@ import firebase from "firebase";
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import Paper from '@material-ui/core/Paper';
 
 
 const styles = theme => ({
-    body:{
-        backgroundImage:"url('../../arch.jpg')",
-        backgroundAttachment: 'fixed',
-        backgroundSize:'cover',
-        backgroundPosition:'center',
-    },
 
     coverImage:{
         background:'#2288C5',
@@ -43,10 +38,6 @@ const styles = theme => ({
         textAlign:'center',
     },
 
-    header:{
-        display:'none !important',
-    },
-
     continueButton:{
         background:'#2CB742',
         width:'100%',
@@ -75,11 +66,17 @@ const styles = theme => ({
         marginTop:'60px',
     },
 
-    'emailInput:focus':{
+    checkEmail:{
+        marginTop:'60px',
+        padding:'20px',
+    }
+    ,
+
+    'emailInput::focus':{
         outline:'none',
     },
 
-    'continueButton:focus':{
+    'continueButton::focus':{
         outline:'none',
     },
 
@@ -141,7 +138,7 @@ class LoginForm extends Component {
                             <input className={classes.continueButton} type="submit" value="Continue" />
                         </form>
                     ) : (
-                        <p>Check your email for authorization link.</p>
+                        <Paper className={classes.checkEmail}>Check your email for authorization link.</Paper>
                     )}
                 </div>
             </div>
