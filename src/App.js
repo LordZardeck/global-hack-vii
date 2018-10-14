@@ -9,14 +9,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
-import Knowledgebase from "./Containers/Knowledgebase";
 import LoginForm from "./Components/Auth/LoginForm";
-import {connect} from 'react-redux';
-import {subscribeResources} from './redux/actions/knowledgebase';
 import firebase from "firebase";
 import User from './redux/actions/user';
-import {withRouter} from "react-router";
-import UserInfo from "./Components/Auth/UserInfo";
 import Registration from "./Containers/Registration/Registration";
 
 const theme = createMuiTheme({
