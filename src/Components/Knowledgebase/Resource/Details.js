@@ -10,6 +10,7 @@ import Checkbox from "@material-ui/core/Checkbox/Checkbox";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import Paper from "@material-ui/core/Paper/Paper";
 import {ArrowForward} from "@material-ui/icons";
+import Button from "@material-ui/core/Button/Button";
 
 const converter = new showdown.Converter();
 const defaultState = {resource: {}, tasks: {}};
@@ -60,6 +61,9 @@ const styles = {
         color: '#7B7B7B',
         marginRight: '15px'
     },
+    section: {
+        marginBottom: '48px'
+    },
     taskLink: {
         width: '100%',
         display: 'flex',
@@ -69,7 +73,19 @@ const styles = {
         alignItems: 'center',
         justifyContent: 'flex-start',
         textDecoration: 'none',
-    }
+    },
+    location: {
+        padding: '20px'
+    },
+    locationHeading: {
+        fontSize: '17px',
+        fontWeight: '700',
+        marginBottom: '20px'
+    },
+    locationAddress: {
+        marginBottom: '23px'
+    },
+    locationButton: {}
 };
 
 class Details extends Component {
@@ -111,7 +127,7 @@ class Details extends Component {
                 <div className={classes.heroImage} style={{backgroundImage: `url(${this.state.resource.image})`}}/>
                 <Typography className={[classes.title, classes.objectMargin].join(' ')}
                             variant={"h5"}>{title}</Typography>
-                <div className={[classes.content, classes.objectMargin].join(' ')}
+                <div className={[classes.content, classes.objectMargin, classes.section].join(' ')}
                      dangerouslySetInnerHTML={{__html: converter.makeHtml(description)}}/>
                 {
                     taskIds.length > 0
@@ -119,7 +135,7 @@ class Details extends Component {
                             <React.Fragment>
                                 <Typography className={[classes.objectMargin, classes.tasksHeader].join(' ')}
                                             variant={"h6"}>Things to do</Typography>
-                                <Paper className={classes.objectMargin}>
+                                <Paper className={[classes.objectMargin, classes.section].join(' ')}>
                                     <List className={classes.taskList}>
                                         {Object.keys(this.state.tasks).map(taskId => (
                                             <ListItem
@@ -146,6 +162,28 @@ class Details extends Component {
                                             </ListItem>
                                         ))}
                                     </List>
+                                </Paper>
+                            </React.Fragment>
+                        )
+                        : <React.Fragment/>
+                }
+                {
+                    taskIds.length > 0
+                        ? (
+                            <React.Fragment>
+                                <Typography className={[classes.objectMargin, classes.tasksHeader].join(' ')}
+                                            variant={"h6"}>Locations near by</Typography>
+                                <Paper className={[classes.objectMargin, classes.location].join(' ')}>
+                                    <Typography className={classes.locationHeading} variant={"h6"}>Maplewood DMV License
+                                        Office</Typography>
+                                    <Typography className={classes.locationAddress}
+                                                variant={"body2"}>
+                                        <strong>Address</strong>: Deer Creek Shopping Center, 0000, <br />
+                                        3238 N Laclede Station Rd, <br />
+                                        St. Louis, MO 63143
+                                    </Typography>
+                                    <Button variant="contained" size="large" color="primary"
+                                            className={classes.locationButton}>Get Directions</Button>
                                 </Paper>
                             </React.Fragment>
                         )

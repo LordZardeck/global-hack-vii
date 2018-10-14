@@ -25,6 +25,9 @@ const theme = createMuiTheme({
 });
 
 const styles = {
+    root: {
+        paddingBottom: '30px'
+    },
     appBar: {
         boxShadow: 'none'
     },
@@ -47,7 +50,7 @@ class App extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <CssBaseline/>
-                <div className="App">
+                <div className={classes.root}>
                     <AppBar className={classes.appBar} position={"static"}>
                         <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
                     </AppBar>
