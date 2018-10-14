@@ -14,7 +14,7 @@ import firebase from "firebase";
 import User from './redux/actions/user';
 import {withRouter} from "react-router";
 import UserInfo from "./Components/Auth/UserInfo";
-import Registration from ".Containers/Registration/Registration";
+import Registration from "./Containers/Registration/Registration";
 
 const theme = createMuiTheme({
     typography: {
@@ -30,7 +30,7 @@ const theme = createMuiTheme({
     },
 });
 
-const styles = {
+const styles = theme => ({
     appBar: {
         boxShadow: 'none'
     },
@@ -40,7 +40,7 @@ const styles = {
         lineHeight: '52px',
         margin: '5px auto 4px'
     }
-};
+});
 
 class App extends Component {
     constructor(props) {
@@ -127,7 +127,7 @@ class App extends Component {
             if(this.state.user !== null && this.state.user.userPopulated === true) {
                 component = <Knowledgebase/>;
             } else {
-                component = <UserInfo authUser={this.state.authUser} user={this.state.user} />;
+                component = <Registration authUser={this.state.authUser} user={this.state.user} />
             }
         }
 
@@ -147,4 +147,7 @@ class App extends Component {
     }
 }
 
-export default withStyles(styles)(App);
+
+
+export default withStyles(styles)(withRouter(connect(null, {subscribeResources})(App)));
+
