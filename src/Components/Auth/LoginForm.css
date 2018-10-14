@@ -1,7 +1,3 @@
-header{
-    display:none !important;
-}
-
 input::placeholder{
     color:white;
 }
