@@ -15,6 +15,7 @@ import User from './redux/actions/user';
 import {withRouter} from "react-router";
 import UserInfo from "./Components/Auth/UserInfo";
 import Registration from "./Containers/Registration/Registration";
+import SOS from "./Components/SOS/SOS";
 
 const theme = createMuiTheme({
     typography: {
@@ -125,7 +126,10 @@ class App extends Component {
 
         if(this.state.authUser !== null) {
             if(this.state.user !== null && this.state.user.userPopulated === true) {
-                component = <Knowledgebase/>;
+                component = <div class="kb-wrapper">
+                    <Knowledgebase/>
+                    <SOS user={this.state.user} />
+                </div>;
             } else {
                 component = <Registration authUser={this.state.authUser} user={this.state.user} />
             }

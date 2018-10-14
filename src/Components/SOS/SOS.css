@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+}
+
+.SOS {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: white;
+    z-index: 1100; /* over app bar */
+
+    font-family: Roboto;
+}
+
+.SOS.hidden {
+    top: calc(100% - 60px);
+}
+
+.SOS .trigger {
+    background-color: #FF5722;
+    color: white;
+    display: block;
+    height: 60px;
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: Roboto;
+    padding: 18px 2.5em 18px 0.7em;
+    box-sizing: border-box;
+}
+
+.SOS .contact-form {
+
+}
+
+.SOS .contact-form .sponsor-info {
+    color: #212121;
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 26px;
+}
