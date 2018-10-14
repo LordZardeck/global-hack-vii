@@ -72,12 +72,8 @@ class Registration extends Component {
         spacing: 16,
     };
 
-    constructor(props) {
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(event) {
+    handleSubmit() {
         let that = this;
 
         //@todo: hard coded values
@@ -106,8 +102,6 @@ class Registration extends Component {
         ).then(result => {
             that.setState({formSubmitted: true});
         });
-
-        event.preventDefault();
     }
 
     handleChange = key => (event, value) => {
@@ -117,9 +111,14 @@ class Registration extends Component {
     };
 
     handleNext = () => {
-        this.setState(state => ({
-            activeStep: state.activeStep + 1,
-        }));
+        debugger;
+        if (this.state.activeStep === getSteps().length - 1) {
+            this.setState(state => ({
+                activeStep: state.activeStep + 1,
+            }));
+        } else {
+            this.handleSubmit()
+        }
     };
 
     handleBack = () => {
