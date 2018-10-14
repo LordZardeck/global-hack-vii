@@ -15,6 +15,7 @@ import Registration from "./Containers/Registration/Registration";
 import Card from "./Components/Knowledgebase/Resource/Card";
 import Details from "./Components/Knowledgebase/Resource/Details";
 import Dashboard from "./Containers/Dashboard";
+import MenuBar from './Components/MenuBar'
 
 const theme = createMuiTheme({
     typography: {
@@ -51,6 +52,7 @@ class App extends Component {
 
         this.wireUserAuthChange();
     }
+
 
     wireUserAuthChange() {
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
@@ -97,9 +99,7 @@ class App extends Component {
                 <CssBaseline/>
                 <div className={classes.root}>
                     {
-                        this.props.authUser !== null && <AppBar className={classes.appBar} position={"static"}>
-                            <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
-                        </AppBar>
+                        <MenuBar/>
                     }
                     {
                         this.props.sessionInitialized && this.props.userInitialized &&
