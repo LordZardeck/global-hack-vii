@@ -1,0 +1,18 @@
+header{
+    display:none !important;
+}
+
+input::placeholder{
+    color:white;
+}
+
+input:focus{
+    outline:none;
+}
+
+body{
+    background-image:url('../../arch.png');
+    background-attachment: fixed;
+    background-size:cover;
+    background-position:center;
+}
