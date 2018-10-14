@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Knowledgebase from "./Containers/Knowledgebase";
 import {connect} from 'react-redux';
 import {subscribeResources} from './redux/actions/knowledgebase';
-import {withRouter} from "react-router";
+import {Redirect, Route, Switch, withRouter} from "react-router";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid/Grid";
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography/Typography";
 import {withStyles} from "@material-ui/core";
 import LoginForm from "./Components/Auth/LoginForm";
 import firebase from "firebase";
-import User from './redux/actions/user';
+import {createUser, subscribeAuthStateChange} from './redux/actions/user';
 import Registration from "./Containers/Registration/Registration";
 
 const theme = createMuiTheme({
@@ -46,108 +46,86 @@ const styles = theme => ({
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            authUser: null,
-            user: null
-        };
+
+        this.wireUserAuthChange();
     }
 
     wireUserAuthChange() {
-        let that = this;
-
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                that.setState({
-                    authUser: user
-                });
-            } else {
-                that.setState({
-                    authUser: null
-                });
-            }
-        });
-
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
             let email = window.localStorage.getItem('emailForSignIn');
+
             if (!email) {
                 email = window.prompt('Please provide your email for confirmation');
             }
 
             firebase.auth().signInWithEmailLink(email, window.location.href)
-                .then(function(result) {
-                    if(result.additionalUserInfo.isNewUser) {
-                        User.createUser(result.user.uid);
-                    }
-
+                .then(({additionalUserInfo, user}) => {
                     window.localStorage.removeItem('emailForSignIn');
-
                     // remove sign in with email link query string stuff
                     window.history.replaceState({}, "", "/"); //@todo: base URL?
+
+                    if (additionalUserInfo.isNewUser) {
+                        return this.createUser(user.uid);
+                    }
                 })
-                .catch(function(error) {
-                    console.error(error.code);
-                });
+                .catch(({code}) => console.error(code));
         }
-    }
-
-    loadUserDetails(uid) {
-        let that = this;
-
-        return firebase.firestore().collection('users').doc(uid).get().then(userDoc => {
-            that.setState({user: userDoc.data()});
-        });
     }
 
     componentDidMount() {
         this.props.subscribeResources();
+        this.props.subscribeAuthStateChange();
 
         this.wireUserAuthChange();
-
-        if(this.state.authUser !== null) {
-            this.loadUserDetails(this.state.authUser.uid);
-        }
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        if(nextState.authUser === null) {
-            return true; // no user incoming
-        }
+    isLoggedIn() {
+        return this.props.authUser !== null;
+    }
 
-        if (this.state.authUser === null || this.state.authUser.uid !== nextState.authUser.uid) {
-            this.loadUserDetails(nextState.authUser.uid);
-        }
-
-        return true;
+    isRegistered() {
+        return this.props.currentUser !== null && this.props.currentUser.userPopulated === true;
     }
 
     render() {
         const {classes} = this.props;
-        let component = <LoginForm />;
-
-        if(this.state.authUser !== null) {
-            component = <Registration authUser={this.state.authUser} user={this.state.user} />;
-
-            if(this.state.user !== null && this.state.user.userPopulated === true) {
-                component = <Knowledgebase/>;
-            }
-        }
 
         return (
             <MuiThemeProvider theme={theme}>
                 <CssBaseline/>
                 <div className={classes.root}>
                     {
-                        this.state.authUser !== null && <AppBar className={classes.appBar} position={"static"}>
+                        this.props.authUser !== null && <AppBar className={classes.appBar} position={"static"}>
                             <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
                         </AppBar>
                     }
-                    <Grid container direction="column" justify="flex-start" alignItems="center">
-                        {component}
-                    </Grid>
+                    {
+                        this.props.sessionInitialized && this.props.userInitialized && <Grid container direction="column" justify="flex-start" alignItems="center">
+                            <Switch>
+                                <Route path="/login" component={LoginForm}/>
+                                <Route path="/registration" component={Registration}/>
+                                <Route path="/" component={Knowledgebase}/>
+                            </Switch>
+                            {
+                                (!this.isLoggedIn())
+                                    ? <Redirect to="/login"/>
+                                    : <React.Fragment/>
+                            }
+                            {
+                                (this.isLoggedIn() && !this.isRegistered())
+                                    ? <Redirect to="/registration"/>
+                                    : <React.Fragment/>
+                            }
+                        </Grid>
+                    }
                 </div>
             </MuiThemeProvider>
         );
     }
 }
 
-export default withStyles(styles)(withRouter(connect(null, {subscribeResources})(App)));
+export default withStyles(styles)(withRouter(connect(state => ({...state.user}), {
+    subscribeResources,
+    subscribeAuthStateChange,
+    createUser
+})(App)));

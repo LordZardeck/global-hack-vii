@@ -14,7 +14,7 @@ const styles = theme => ({
     },
 });
 
-class ImmigrantType extends React.Component {
+class ImmigrantType extends Component {
     state = {
         value: '',
         spacing: 16,
@@ -46,7 +46,6 @@ class ImmigrantType extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const {spacing} = this.state;
 
         return (
             <FormControl component="fieldset" className={classes.root}>
@@ -64,8 +63,8 @@ class ImmigrantType extends React.Component {
                     >
                         {
                             this.options.map(
-                                (option) =>
-                                    <MenuItem value={option}>{option}</MenuItem>
+                                (option, index) =>
+                                    <MenuItem key={index} value={option}>{option}</MenuItem>
                             )
                         }
                     </Select>

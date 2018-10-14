@@ -22,9 +22,7 @@ class PersonalInformation extends Component {
     }
 
     handleChange(name) {
-        console.log(`Handling change for state ${name}`);
         return event => {
-            console.log(`Got update for state ${name}: ${event.target.value}`);
             this.setState({
                 [name]: event.target.value,
             });
@@ -55,8 +53,9 @@ class PersonalInformation extends Component {
 
         return (
             <div className={classes.root}>
-                {this.options.map((option) =>
+                {this.options.map((option, index) =>
                     <TextField
+                        key={index}
                         name={option.name}
                         label={option.label}
                         onChange={this.handleChange(option.name)}

@@ -15,7 +15,9 @@ import SpeakEnglish from './Screens/SpeakEnglish';
 import Skills from './Screens/Skills';
 import Residency from './Screens/Residency';
 import PersonalInformation from './Screens/PersonalInformation';
-import User from "../../redux/actions/user";
+import {populateUser} from "../../redux/actions/user";
+import {connect} from "react-redux";
+import {Redirect} from "react-router";
 
 const styles = theme => ({
     root: {
@@ -40,6 +42,7 @@ class Registration extends Component {
     state = {
         activeStep: 0,
         spacing: 16,
+        formSubmitted: false
     };
 
     constructor(props) {
@@ -85,7 +88,7 @@ class Registration extends Component {
     };
 
     handleSubmit(userId, formData) {
-        User.populateUser(userId, formData).then(() => this.setState({formSubmitted: true}));
+        populateUser(userId, {...formData, userPopulated: true}).then(() => this.setState({formSubmitted: true}));
     }
 
     handleChange = key => (event, value) => {
@@ -110,7 +113,6 @@ class Registration extends Component {
 
             if (this.state.activeStep === 5) {
                 this.handleSubmit(this.props.authUser.uid, newState.formData);
-                console.log('form submitted!');
             }
 
             return newState;
@@ -130,10 +132,13 @@ class Registration extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, currentUser } = this.props;
+        const { activeStep, spacing, formSubmitted } = this.state;
         const steps = this.getSteps();
-        const { activeStep } = this.state;
-        const { spacing } = this.state;
+
+        if(formSubmitted || (currentUser !== null && currentUser.userPopulated === true)) {
+            return <Redirect to="/"/>
+        }
 
         return (
             <Grid container justify="center" className={classes.root} spacing={spacing}>
@@ -189,4 +194,4 @@ Registration.propTypes = {
     classes: PropTypes.object,
 };
 
-export default withStyles(styles)(Registration);
+export default withStyles(styles)(connect(state => ({...state.user}))(Registration));

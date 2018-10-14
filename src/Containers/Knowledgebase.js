@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import Card from "../Components/Knowledgebase/Resource/Card";
 import {Route, Switch, withRouter} from "react-router";
 import Details from "../Components/Knowledgebase/Resource/Details";
-import {Link} from "react-router-dom";
 import {withStyles} from "@material-ui/core";
 
 const styles = {
