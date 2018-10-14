@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import './App.css';
+import Knowledgebase from "./Containers/Knowledgebase";
+import {connect} from 'react-redux';
+import {subscribeResources} from './redux/actions/knowledgebase';
+import {withRouter} from "react-router";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid/Grid";
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -31,6 +34,9 @@ const theme = createMuiTheme({
 });
 
 const styles = theme => ({
+    root: {
+        paddingBottom: '30px'
+    },
     appBar: {
         boxShadow: 'none'
     },
@@ -132,22 +138,19 @@ class App extends Component {
         }
 
         return (
-                <MuiThemeProvider theme={theme}>
-                    <CssBaseline/>
-                    <div className="App">
-                        <AppBar className={classes.appBar}>
-                            <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
-                        </AppBar>
-                        <Grid container direction="column" justify="flex-start" alignItems="center">
-                            {component}
-                        </Grid>
-                    </div>
-                </MuiThemeProvider>
+            <MuiThemeProvider theme={theme}>
+                <CssBaseline/>
+                <div className={classes.root}>
+                    <AppBar className={classes.appBar} position={"static"}>
+                        <Typography color="inherit" className={classes.headingLogo}>enabl</Typography>
+                    </AppBar>
+                    <Grid container direction="column" justify="flex-start" alignItems="center">
+                        {component}
+                    </Grid>
+                </div>
+            </MuiThemeProvider>
         );
     }
 }
 
-
-
 export default withStyles(styles)(withRouter(connect(null, {subscribeResources})(App)));
-
