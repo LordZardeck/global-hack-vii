@@ -14,6 +14,7 @@ import {createUser, subscribeAuthStateChange} from './redux/actions/user';
 import Registration from "./Containers/Registration/Registration";
 import Card from "./Components/Knowledgebase/Resource/Card";
 import Details from "./Components/Knowledgebase/Resource/Details";
+import Dashboard from "./Containers/Dashboard";
 
 const theme = createMuiTheme({
     typography: {
@@ -106,12 +107,7 @@ class App extends Component {
                             <Switch>
                                 <Route path="/login" component={LoginForm}/>
                                 <Route path="/registration" component={Registration}/>
-                                <Route exact path="/"
-                                       render={
-                                           () => Object.keys(resources)
-                                               .map(resourceId => <Card key={resourceId}
-                                                                        resource={resources[resourceId]}/>)
-                                       }/>
+                                <Route exact path="/" component={Dashboard}/>
                                 <Route path="/knowledgebase/view/:id" render={props => <Details {...props}/>}/>
                             </Switch>
                             {

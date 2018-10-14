@@ -15,7 +15,7 @@ import Button from "@material-ui/core/Button/Button";
 const converter = new showdown.Converter();
 const defaultState = {resource: {}, tasks: {}};
 
-const styles = {
+export const styles = {
     heroImage: {
         width: '100%',
         height: '150px',
